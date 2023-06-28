@@ -8,12 +8,6 @@ import (
 	"strconv"
 )
 
-type CurrencyData struct {
-	time           string
-	currencyName   string
-	buyingSpotRate float64
-}
-
 func crawlCurrency(url string) ([]*CurrencyData, error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -69,5 +63,6 @@ func main() {
 		fmt.Println(v.time)
 		fmt.Println(v.currencyName)
 		fmt.Println(v.buyingSpotRate)
+		fmt.Println(v.GreaterThan(31))
 	}
 }
