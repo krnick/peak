@@ -1,4 +1,4 @@
-module peak
+module github.com/krnick/peak
 
 go 1.20
 
