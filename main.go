@@ -5,6 +5,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -53,16 +54,31 @@ func crawlCurrency(url string) ([]*CurrencyData, error) {
 
 func main() {
 
-	list, err := crawlCurrency("https://rate.bot.com.tw/xrt/quote/day/EUR?Lang=en-US")
+	currencyList, err := crawlCurrency("https://rate.bot.com.tw/xrt/quote/day/EUR?Lang=en-US")
 
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	for _, v := range list {
+
+	if len(os.Args) != 2 {
+		fmt.Println("Usage: ./peak <number-for-greaterthan>")
+		fmt.Println("E.g.: ./peak 33")
+		return
+	}
+
+	numGreaterThan, err := strconv.ParseFloat(os.Args[1], 64)
+	if err != nil {
+		return
+	}
+
+	fmt.Println(len(os.Args))
+	for _, v := range currencyList {
+		fmt.Println("------------------------")
 		fmt.Println(v.time)
 		fmt.Println(v.currencyName)
 		fmt.Println(v.buyingSpotRate)
-		fmt.Println(v.GreaterThan(31))
+		fmt.Println(v.GreaterThan(numGreaterThan))
+		fmt.Println("------------------------")
 	}
 }
