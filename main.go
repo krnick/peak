@@ -62,6 +62,7 @@ func main() {
 	list, err := crawlCurrency("https://rate.bot.com.tw/xrt/quote/day/EUR?Lang=en-US")
 
 	if err != nil {
+		log.Println(err)
 		return
 	}
 	for _, v := range list {
