@@ -7,6 +7,5 @@ type CurrencyData struct {
 }
 
 func (currencyData *CurrencyData) GreaterThan(num float64) bool {
-
 	return currencyData.BuyingSpotRate > num
 }
