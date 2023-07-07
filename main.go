@@ -29,13 +29,7 @@ func main() {
 		return
 	}
 
-	fmt.Println(len(os.Args))
-	for _, v := range currencyList {
-		fmt.Println("------------------------")
-		fmt.Println(v.Time)
-		fmt.Println(v.CurrencyName)
-		fmt.Println(v.BuyingSpotRate)
-		fmt.Println(v.GreaterThan(numGreaterThan))
-		fmt.Println("------------------------")
-	}
+	// latest one
+	currencyList[len(currencyList)-1].PrintCurrency(numGreaterThan)
+
 }
