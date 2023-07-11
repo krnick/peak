@@ -13,16 +13,16 @@ import (
 
 func startCrawling(url string, threshold float64) error {
 
-	currencyList, err := crawler.CrawlCurrencyInBus("https://rate.bot.com.tw/xrt/quote/day/EUR?Lang=en-US")
-	if err != nil {
-		log.Println(err)
-		return errors.New("crawl currency failed")
-	}
-
-	ticker := time.NewTicker(time.Second)
+	ticker := time.NewTicker(time.Minute)
 
 	for ; ; <-ticker.C {
 		// latest one
+		currencyList, err := crawler.CrawlCurrencyInBus("https://rate.bot.com.tw/xrt/quote/day/EUR?Lang=en-US")
+		if err != nil {
+			log.Println(err)
+			return errors.New("crawl currency failed")
+		}
+
 		currencyList[len(currencyList)-1].PrintCurrency(threshold)
 	}
 
