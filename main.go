@@ -1,22 +1,34 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/krnick/peak/crawler"
 )
 
-func main() {
+func startCrawling(url string, threshold float64) error {
 
 	currencyList, err := crawler.CrawlCurrencyInBus("https://rate.bot.com.tw/xrt/quote/day/EUR?Lang=en-US")
-
 	if err != nil {
 		log.Println(err)
-		return
+		return errors.New("crawl currency failed")
 	}
+
+	ticker := time.NewTicker(time.Second)
+
+	for ; ; <-ticker.C {
+		// latest one
+		currencyList[len(currencyList)-1].PrintCurrency(threshold)
+	}
+
+}
+
+func main() {
 
 	if len(os.Args) != 2 {
 		fmt.Println("Usage: ./peak <number-for-greaterthan>")
@@ -29,7 +41,8 @@ func main() {
 		return
 	}
 
-	// latest one
-	currencyList[len(currencyList)-1].PrintCurrency(numGreaterThan)
+	go startCrawling("https://rate.bot.com.tw/xrt/quote/day/EUR?Lang=en-US", numGreaterThan)
+
+	select {}
 
 }
