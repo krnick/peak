@@ -17,7 +17,7 @@ func startCrawling(url string, threshold float64) error {
 
 	for ; ; <-ticker.C {
 		// latest one
-		currencyList, err := crawler.CrawlCurrencyInBus("https://rate.bot.com.tw/xrt/quote/day/EUR?Lang=en-US")
+		currencyList, err := crawler.CrawlCurrencyInBus(url)
 		if err != nil {
 			log.Println(err)
 			return errors.New("crawl currency failed")
